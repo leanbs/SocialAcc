@@ -14,9 +14,23 @@ class SocialAccountCell: UITableViewCell {
             guard let socialAccount = socialAccount else { return }
             logoImageView.image = UIImage(named: socialAccount.imageUrl)
             appTitle.text = socialAccount.title
-            appLink.setTitle(socialAccount.url, for: .normal)
-            appLink.setTitleColor(.black, for: .normal)
+            setupAppLink();
         }
+    }
+    
+    fileprivate func setupAppLink() {
+        guard let socialAccount = socialAccount else { return }
+        appLink.setTitle(socialAccount.url, for: .normal)
+        appLink.setTitleColor(.black, for: .normal)
+        
+        let attribs:[NSAttributedString.Key: Any] = [
+            NSAttributedString.Key.foregroundColor: UIColor.blue,
+            NSAttributedString.Key.underlineColor: UIColor.blue,
+            NSAttributedString.Key.underlineStyle: 1,
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)
+        ]
+        let str = NSAttributedString(string: socialAccount.url, attributes: attribs)
+        appLink.setAttributedTitle(str, for: .normal)
     }
     
     fileprivate let logoImageView: UIImageView = {
