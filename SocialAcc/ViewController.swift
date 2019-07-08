@@ -8,7 +8,19 @@
 
 import UIKit
 
+struct SocialAccount {
+    var title: String
+    var url: String
+    var imageUrl: String
+}
+
 class ViewController: UITableViewController {
+    
+    fileprivate var socialAccounts: [SocialAccount] = [
+        SocialAccount(title: "Instagram", url: "https://www.instagram.com/davinyii", imageUrl: "instagram"),
+        SocialAccount(title: "Twitter", url: "https://www.twitter.com/davinyii", imageUrl: "twitter"),
+        SocialAccount(title: "Facebook", url: "https://www.facebook.com/davinyii", imageUrl: "facebook"),
+    ]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +34,7 @@ class ViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return socialAccounts.count
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -31,7 +43,8 @@ class ViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath)
-        cell.textLabel?.text = "This is a cell at row \(indexPath.row)"
+        let socialAccount = socialAccounts[indexPath.row]
+        cell.textLabel?.text = socialAccount.title
         return cell
     }
 
