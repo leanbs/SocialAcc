@@ -15,9 +15,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        let tableViewController = ViewController()
+        tableViewController.title = "Your Accounts"
+        
+        UINavigationBar.appearance().prefersLargeTitles = true
+        let navigationController = UINavigationController()
+        navigationController.viewControllers = [tableViewController]
+        
         window = UIWindow()
         window?.makeKeyAndVisible()
-        window?.rootViewController = ViewController()
+        window?.rootViewController = navigationController
         
         return true
     }
