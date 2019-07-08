@@ -31,6 +31,15 @@ class SocialAccountCell: UITableViewCell {
         ]
         let str = NSAttributedString(string: socialAccount.url, attributes: attribs)
         appLink.setAttributedTitle(str, for: .normal)
+        
+//        appLink.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.openApp)))
+        appLink.addTarget(self, action: #selector(self.openApp), for: .touchUpInside)
+    }
+    
+    @objc fileprivate func openApp() {
+        guard let socialAccount = socialAccount else { return }
+        let appUrl = URL(string: socialAccount.url)!
+        UIApplication.shared.open(appUrl, options: [:], completionHandler: nil)
     }
     
     fileprivate let logoImageView: UIImageView = {
