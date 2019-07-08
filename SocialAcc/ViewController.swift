@@ -14,6 +14,18 @@ struct SocialAccount {
     var imageUrl: String
 }
 
+class SocialAccountCell: UITableViewCell {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        contentView.backgroundColor = .yellow
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(cider:) has not been implemented")
+    }
+}
+
 class ViewController: UITableViewController {
     
     fileprivate var socialAccounts: [SocialAccount] = [
@@ -30,7 +42,7 @@ class ViewController: UITableViewController {
     }
     
     fileprivate func setupTableView() {
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellId")
+        tableView.register(SocialAccountCell.self, forCellReuseIdentifier: "cellId")
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -42,9 +54,10 @@ class ViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as! SocialAccountCell
         let socialAccount = socialAccounts[indexPath.row]
         cell.textLabel?.text = socialAccount.title
+        cell.textLabel?.backgroundColor = .clear
         return cell
     }
 
