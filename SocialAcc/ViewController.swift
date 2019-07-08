@@ -8,26 +8,8 @@
 
 import UIKit
 
-struct SocialAccount {
-    var title: String
-    var url: String
-    var imageUrl: String
-}
-
-class SocialAccountCell: UITableViewCell {
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        contentView.backgroundColor = .yellow
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(cider:) has not been implemented")
-    }
-}
-
 class ViewController: UITableViewController {
-    
+    fileprivate var cellId = "cellId"
     fileprivate var socialAccounts: [SocialAccount] = [
         SocialAccount(title: "Instagram", url: "https://www.instagram.com/davinyii", imageUrl: "instagram"),
         SocialAccount(title: "Twitter", url: "https://www.twitter.com/davinyii", imageUrl: "twitter"),
@@ -42,7 +24,7 @@ class ViewController: UITableViewController {
     }
     
     fileprivate func setupTableView() {
-        tableView.register(SocialAccountCell.self, forCellReuseIdentifier: "cellId")
+        tableView.register(SocialAccountCell.self, forCellReuseIdentifier: cellId)
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -54,10 +36,11 @@ class ViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as! SocialAccountCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! SocialAccountCell
         let socialAccount = socialAccounts[indexPath.row]
-        cell.textLabel?.text = socialAccount.title
-        cell.textLabel?.backgroundColor = .clear
+        cell.socialAccount = socialAccount
+//        cell.textLabel?.text = socialAccount.title
+//        cell.textLabel?.backgroundColor = .clear
         return cell
     }
 
